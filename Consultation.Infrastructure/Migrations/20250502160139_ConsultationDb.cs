@@ -5,7 +5,7 @@
 namespace Consultation.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedNewTables : Migration
+    public partial class ConsultationDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,20 @@ namespace Consultation.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.CourseID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    DeparmentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.DeparmentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,6 +69,21 @@ namespace Consultation.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Program",
+                columns: table => new
+                {
+                    ProgramID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Program", x => x.ProgramID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SchoolYear",
                 columns: table => new
                 {
@@ -77,12 +106,27 @@ namespace Consultation.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentYearID = table.Column<int>(type: "int", nullable: false),
                     ProgramID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.StudentID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FacultyID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                 });
         }
 
@@ -93,16 +137,25 @@ namespace Consultation.Infrastructure.Migrations
                 name: "Courses");
 
             migrationBuilder.DropTable(
+                name: "Department");
+
+            migrationBuilder.DropTable(
                 name: "EnrolledCourse");
 
             migrationBuilder.DropTable(
                 name: "Faculty");
 
             migrationBuilder.DropTable(
+                name: "Program");
+
+            migrationBuilder.DropTable(
                 name: "SchoolYear");
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
