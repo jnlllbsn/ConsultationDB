@@ -31,6 +31,7 @@ namespace Consultation.Infrastructure.Data
         public DbSet<SchoolYear> SchoolYear { get; set; }
         public DbSet<Student> Students { get; set; }     
         public DbSet<User> Users { get; set; }
+        public DbSet<Bulletin> Bulletin { get; set; }
 
     }
 }
