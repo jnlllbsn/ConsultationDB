@@ -11,7 +11,7 @@ namespace Consultation.Domain
     public class FacultySchedule
     {
         [Key]
-        public int FacultyScheduleId { get; set; }
+        public int FacultyScheduleID { get; set; }
         public DateTime TimeStart { get; set; }
         public DateTime TimeEnd { get; set; }
 
@@ -24,13 +24,5 @@ namespace Consultation.Domain
             DayOfWeek.Friday,
             DayOfWeek.Saturday
         };
-
-        public DateOnly Day { get; set; }
-
-        [ForeignKey(nameof(Faculty))]
-        public int FacultyID { get; set; }
-        public Faculty Faculty { get; set; }
-
-
     }
 }
